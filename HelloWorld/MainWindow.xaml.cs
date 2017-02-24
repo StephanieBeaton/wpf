@@ -33,14 +33,13 @@ namespace HelloWorld
             MessageBox.Show("Submitting password:" + uxPassword.Text);
         }
 
-        private void uxName_or_uxPasssword_LostFocus(object sender, RoutedEventArgs e)
-        {
-            // MessageBox.Show("Name or Password lost focus");
 
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            // As soon as the user enter text in uxName and uxPassword, 
+            // the uxSubmit button should be enabled
             uxSubmit.IsEnabled = (uxName.Text.Length > 0 && uxPassword.Text.Length > 0);
 
         }
-
-
     }
 }

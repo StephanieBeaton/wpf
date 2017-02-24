@@ -8,9 +8,9 @@
         Title="MainWindow" Height="350" Width="525" Background="#FFDE7373">
     <StackPanel>
         <TextBlock>Enter Name:</TextBlock>
-        <TextBox x:Name="uxName" Background="#FFC4CB2C" LostFocus="uxName_or_uxPasssword_LostFocus"/>
+        <TextBox x:Name="uxName" Background="#FFC4CB2C" KeyUp="TextBox_KeyUp" />
         <TextBlock>Enter Password:</TextBlock>
-        <TextBox x:Name="uxPassword" Background="#FFC1BA27" LostFocus="uxName_or_uxPasssword_LostFocus"></TextBox>
+        <TextBox x:Name="uxPassword" Background="#FFC1BA27" KeyUp="TextBox_KeyUp" ></TextBox>
         <Button x:Name="uxSubmit" Click="uxSubmit_Click" Background="#FF25B925">Submit</Button>
     </StackPanel>
 </Window>
