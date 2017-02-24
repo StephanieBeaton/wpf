@@ -1,0 +1,16 @@
+﻿<Window x:Class="HelloWorld.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HelloWorld"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Background="#FFDE7373">
+    <StackPanel>
+        <TextBlock>Enter Name:</TextBlock>
+        <TextBox x:Name="uxName" Background="#FFC4CB2C" LostFocus="uxName_or_uxPasssword_LostFocus"/>
+        <TextBlock>Enter Password:</TextBlock>
+        <TextBox x:Name="uxPassword" Background="#FFC1BA27" LostFocus="uxName_or_uxPasssword_LostFocus"></TextBox>
+        <Button x:Name="uxSubmit" Click="uxSubmit_Click" Background="#FF25B925">Submit</Button>
+    </StackPanel>
+</Window>
