@@ -1,0 +1,18 @@
+﻿<Window x:Class="HW4_ZipCode_TextBox.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HW4_ZipCode_TextBox"
+        mc:Ignorable="d"
+        Title="HW4 Zipcode TextBox" Height="350" Width="525">
+    <Grid x:Name="uxGrid">
+        <Label x:Name="instructionsLabel" Content="Enable Submit button when valid U.S. Zip Code or Canadian Postal Code is entered" HorizontalAlignment="Left" Margin="22,10,0,0" VerticalAlignment="Top" Width="450"/>
+        <TextBlock x:Name="postalCodeTextBlock" HorizontalAlignment="Left" Margin="108,52,0,0" TextWrapping="Wrap" Text="Zip Code or Postal Code:" VerticalAlignment="Top"/>
+        <TextBox x:Name="postalCodeTextBox" Text="{Binding PostalCode, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"  HorizontalAlignment="Left" Height="23" Margin="108,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="errorLabel" Content="{Binding PostalCodeError, UpdateSourceTrigger=PropertyChanged}" Margin="108,124,74,164"/>
+        <Button x:Name="submitButton" Content="Submit" IsEnabled="{Binding SubmitButtonEnabled, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="108,160,0,0" VerticalAlignment="Top" Width="75"/>
+
+
+    </Grid>
+</Window>
