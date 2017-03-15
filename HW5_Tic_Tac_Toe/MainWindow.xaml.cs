@@ -59,18 +59,19 @@ namespace HW5_Tic_Tac_Toe
             // Try to bind the StatusBar text to a property in TicTacToe
             this.DataContext = _tictactoe;
 
-            var children = this.uxGrid.Children;
+            //  xxxxxxxx  Test Code here xxxxxxxxxxxxxxxxxxxxxxx
+            //var children = this.uxGrid.Children;
 
-            Button button = (children[0] as Button);
+            //Button button = (children[0] as Button);
 
-            int[] row_col_key = new int[] { TicTacToe.row_col_start_index,
-                                            TicTacToe.row_col_start_index };
+            //int[] row_col_key = new int[] { TicTacToe.row_col_start_index,
+            //                                TicTacToe.row_col_start_index };
 
-            TicTacToeSquare square = _tictactoe.tictactoeDictionary[row_col_key];
+            //TicTacToeSquare square = _tictactoe.tictactoeDictionary[row_col_key];
 
-            button.Content = square.SquarePlayer.ToString();
+            //button.Content = square.SquarePlayer.ToString();
 
-            // convert 0 -> 8 (buttons indices) to  [1,1] -> [3, 3] tictactoeDictionary indices
+            // convert 0 -> 8 (buttons indices) to  [0,0] -> [2,2] tictactoeDictionary indices
             // and vice versa
 
         }
@@ -78,10 +79,21 @@ namespace HW5_Tic_Tac_Toe
         private void uxNewGame_Click(object sender, RoutedEventArgs e)
         {
             // reset a bunch of values
+            _tictactoe = new TicTacToe();
+
+            // Try to bind the StatusBar text to a property in TicTacToe
+            this.DataContext = _tictactoe;
+
+            // refresh the Tic Tac Toe buttons
+            // not necesary if data binding was working
+            Refresh();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (_tictactoe.gameWon == true) return;
+
             // figure out which button clicked.   
             // get row and column of clicked button
             // use Tag 
@@ -107,8 +119,6 @@ namespace HW5_Tic_Tac_Toe
             // Add() returns the char to display in the square as a string type
             string squareDisplayChar = _tictactoe.Add(row, column);
 
-            MessageBox.Show("character to display in Square", squareDisplayChar);
-
             // check that squareDisplayChar == "X" or "O"
 
             // ================================================================================
@@ -120,24 +130,48 @@ namespace HW5_Tic_Tac_Toe
 
 
             // did the player win the game?
+            // GameWon() sets public property "gameWon" to true if game was won in _tictactoe instance
             Boolean gameWon = _tictactoe.GameWon(row, column);
 
             if (gameWon)
             {
-                MessageBox.Show("Player {0} won the game!", squareDisplayChar);  
+                MessageBox.Show(String.Format("Player {0} won the game!", squareDisplayChar));  
             }
 
 
-            // If so, take appropriate actions
+            // If game won, take appropriate actions
             //   set CanExecute to false ??
 
-            // determine whether game is over
-            //     take position that was clicked and look for three in a row in 4 possible directions
-            //        - look east-west
-            //        - look north-south
-            //        - look southwest - northeast
-            //        - look southeast - northwest
-            // change the next letter that will be displayed from X to O or O to X  in the Status Bar
+          }
+
+        private void OnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
+
+        private void Refresh()
+        {
+            var children = this.uxGrid.Children;
+
+            int row = 0;
+            int column = 0;
+
+            for(int i=0; i<children.Count; i++)
+            {
+                Button button = (children[i] as Button);
+
+                // convert 0 -> 8 (buttons indices) to  [0,0] -> [2,2] tictactoeDictionary indices
+                row = i / TicTacToe.totalRows;
+                column = i % TicTacToe.totalRows;
+
+                int[] row_col_key = new int[] { row, column };
+
+                TicTacToeSquare square = _tictactoe.tictactoeDictionary[row_col_key];
+
+                button.Content = square.SquarePlayer.ToString();
+
+            }
+
+         }
     }
 }

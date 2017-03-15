@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HW5_Tic_Tac_Toe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Tic Tac Toe Game" Height="350" Width="525">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem x:Name="uxNewGame" Header="_New Game" Click="uxNewGame_Click"></MenuItem>
-                <MenuItem Header="E_xit"></MenuItem>
+                <MenuItem Header="E_xit" Click="OnClose_Click"></MenuItem>
             </MenuItem>
         </Menu>
 

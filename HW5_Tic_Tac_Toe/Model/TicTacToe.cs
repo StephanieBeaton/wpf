@@ -78,6 +78,8 @@ namespace HW5_Tic_Tac_Toe.Model
 
         public Dictionary<int[], TicTacToeSquare> tictactoeDictionary { get; private set; }
 
+        public Boolean gameWon = false;
+
         #endregion
         // ===================================================
 
@@ -225,7 +227,7 @@ namespace HW5_Tic_Tac_Toe.Model
         // ==================================================
         public Boolean GameWon(int row, int column)
         {
-            Boolean gameWon = true;
+            gameWon = true;
 
             int[] row_col_key = new int[] { row, column };
 
@@ -252,6 +254,7 @@ namespace HW5_Tic_Tac_Toe.Model
                 if (playerName != testValue)
                 {
                     gameWon = false;
+                    break;
                 }
 
             }
@@ -271,20 +274,23 @@ namespace HW5_Tic_Tac_Toe.Model
                 if (playerName != testValue)
                 {
                     gameWon = false;
+                    break;
                 }
 
             }
             if (gameWon == true) return gameWon;
 
-            gameWon = true;
+
             // if row, column is in the northwest - southeast diagonal
             // check northwest - southeast diagonal
             // ... look at all squares in northwest to southeast diagonal
             if (row == column)
             {
+                gameWon = true;
+
                 int tempColumn = 0;
 
-                for (int tempRow = 0; tempRow <= row_col_start_index; tempRow++)
+                for (int tempRow = 0; tempRow <= row_col_end_index; tempRow++)
                 {
                     tempColumn = tempRow;
                     int[] temp_row_col_key = new int[] { tempRow, tempColumn };
@@ -294,22 +300,24 @@ namespace HW5_Tic_Tac_Toe.Model
                     if (playerName != testValue)
                     {
                         gameWon = false;
+                        break;
                     }
                 }
             }
             if (gameWon == true) return gameWon;
 
-            gameWon = true;
             // if row, column is in the northeast - southwest diagonal
             // check northeast - southwest diagonal
             // ... look at all squares in northeast to southwest diagonal
-            if ( (totalRows - column) == row)
+            if ( ((totalRows - 1) - column) == row)
             {
+                gameWon = true;
+
                 int tempColumn = 0;
 
-                for (int tempRow = 0; tempRow <= row_col_start_index; tempRow++)
+                for (int tempRow = (totalRows - 1); tempRow <= row_col_end_index; tempRow--)
                 {
-                    tempColumn = totalRows - tempRow;
+                    tempColumn = (totalRows - 1) - tempRow;
 
                     int[] temp_row_col_key = new int[] { tempRow, tempColumn };
 
@@ -318,7 +326,7 @@ namespace HW5_Tic_Tac_Toe.Model
                     if (playerName != testValue)
                     {
                         gameWon = false;
-                        return gameWon;
+                        break;
                     }
                 }
             }
