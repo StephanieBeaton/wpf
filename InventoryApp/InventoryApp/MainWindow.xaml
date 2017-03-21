@@ -1,0 +1,190 @@
+﻿<Window x:Class="InventoryApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InventoryApp"
+        mc:Ignorable="d"
+        Title="Inventory Window" Height="350" Width="725">
+    <Window.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="New" CanExecute="OnNew_CanExecute" Executed="uxItemNew_Click" />
+        <CommandBinding Command="Save" CanExecute="OnUpdate_CanExecute" Executed="uxItemUpdate_Click" />
+        <CommandBinding Command="Delete" CanExecute="OnDelete_CanExecute" Executed="uxItemDelete_Click" />
+    </Window.CommandBindings>
+    
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="New"></KeyBinding>
+        <KeyBinding Key="U" Modifiers="Control" Command="Save"></KeyBinding>
+        <KeyBinding Key="D" Modifiers="Control" Command="Delete"></KeyBinding>
+    </Window.InputBindings>
+    
+    <Window.Background>
+        <ImageBrush ImageSource="images/download.jpeg" />
+    </Window.Background>
+
+
+    <StackPanel Orientation="Vertical">
+        <Menu>
+            <MenuItem Header="_File">
+                <MenuItem x:Name="uxItemNew" Header="_New" Command="New" InputGestureText="Ctrl+N" >
+                    <MenuItem.Icon>
+                        <Image Source="/images/wpf-menus-new.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="uxItemUpdate" Header="_Update"  Command="Save" InputGestureText="Ctrl+U" Loaded="uxItemUpdate_Loaded" />
+                <MenuItem x:Name="uxItemDelete" Header="_Delete"  Command="Delete" InputGestureText="Ctrl+D" Loaded="uxItemDelete_Loaded" />
+                <Separator/>
+                <MenuItem x:Name="uxQuit" Header="_Quit" Click="uxQuit_Click" />
+            </MenuItem>
+            <MenuItem x:Name="uxMenuItemList" Header="_List" Click="uxMenuItemList_Click"/>
+        </Menu>
+        <ToolBarTray>
+            <ToolBar>
+                <Button x:Name="toolBarButtonNew" Content="New" Click="uxItemNew_Click" ToolTip="Click to enter a new item"/>
+                <Separator/>
+                <Button x:Name="toolBarButtonUpdate" Content="Update" Click="uxItemUpdate_Click" ToolTip="Click to update an item"/>
+                <Separator/>
+                <Button x:Name="toolBarButtonDelete" Content="Delete" Click="uxItemDelete_Click" ToolTip="Click to delete an item"/>
+                <Separator/>
+                <Separator/>
+                <Button x:Name="toolBarButtonQuit" Content="Quit" Click="uxQuit_Click" ToolTip="Click to quit"/>
+                <Separator/>
+            </ToolBar>
+        </ToolBarTray>
+        <Grid>
+            
+            <!--
+            <Grid.Resources>
+                <Style x:Key="alternatingWithTriggers" TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Style.Triggers>
+                        <Trigger Property="ListView.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="LightBlue"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="ListView.AlternationIndex" Value="2">
+                            <Setter Property="Background" Value="LightBlue"/>
+                            <Setter Property="Foreground" Value="Navy"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Resources>
+            -->
+
+            <!--
+            <ListView x:Name="uxItemList" Height="200" SelectionChanged="uxItemList_SelectionChanged"
+                      AlternationCount="2" 
+                      ItemContainerStyle="{StaticResource alternatingWithTriggers}">
+            -->
+            <ListView x:Name="uxItemList" Height="200" SelectionChanged="uxItemList_SelectionChanged" Opacity=".6">
+
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="uxContextItemNew" Header="_New" Click="uxItemNew_Click"/>
+                        <MenuItem x:Name="uxContextItemUpdate" Header="_Update" Click="uxItemUpdate_Click" Loaded="uxItemUpdate_Loaded"/>
+                        <MenuItem x:Name="uxContextItemDelete" Header="_Delete" Click="uxItemDelete_Click" Loaded="uxItemDelete_Loaded"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.Resources>
+                    <!--    attempting to put vertical lines around columns
+                    <DataTemplate x:Key="NameTemplate">
+                        <Border BorderThickness="1,1,1,1" BorderBrush="LightGray" Margin="-6,0,0,0">
+                            <TextBlock Grid.Column="1" Grid.Row="0"  Text="{Binding Id}" HorizontalAlignment="Right" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"></TextBlock>
+                        </Border>
+                    </DataTemplate>
+                    -->
+                </ListView.Resources>
+
+                <ListView.View>
+                  <GridView >
+                    <GridViewColumn Width="30" >
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Id" Click="lvItemsColumnHeader_Click">Id</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="LightGray" BorderThickness="1,0,1,0" Margin="-6,0,-6,0">
+                                        <TextBlock Text="{Binding Id}" TextAlignment="Right" />
+                                </Border>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                     <GridViewColumn DisplayMemberBinding="{Binding Desc}" Width="100">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Desc" Click="lvItemsColumnHeader_Click">Description</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn  Width="100" >
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Price" Click="lvItemsColumnHeader_Click">Price</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Price, StringFormat='{}{0:c}'}" TextAlignment="Right" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Width="100">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Quantity" Click="lvItemsColumnHeader_Click">Quantity</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Quantity}" TextAlignment="Right" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Width="100">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Cost" Click="lvItemsColumnHeader_Click">Cost</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Cost, StringFormat='{}{0:c}'}" TextAlignment="Right" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn  Width="100">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="Value" Click="lvItemsColumnHeader_Click">Value</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Value, StringFormat='{}{0:c}'}" TextAlignment="Right" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn DisplayMemberBinding="{Binding CreatedDate}" Width="100">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Tag="CreatedDate" Click="lvItemsColumnHeader_Click">Created Date</GridViewColumnHeader>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        </Grid>
+
+        <StatusBar>
+            <StatusBarItem>
+                <TextBlock x:Name="uxTotalValueStatus"></TextBlock>
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <ProgressBar x:Name="uxProgressBar" Value="50" Width="90" Height="16" Maximum="100"></ProgressBar>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock x:Name="uxPercentStatus"></TextBlock>
+            </StatusBarItem>
+        </StatusBar>
+
+    </StackPanel>
+</Window>

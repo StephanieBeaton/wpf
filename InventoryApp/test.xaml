@@ -1,0 +1,31 @@
+
+                   <GridViewColumn DisplayMemberBinding="{Binding Id}" Width="20">
+
+
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Id}" TextAlignment="Right" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+
+
+  Text="{Binding Id}"
+
+Margin="-6,0,-6,0"
+
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="1,0,1,0" Margin="-6,0,-6,0">
+                                        <Grid Margin="6,0,6,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding Id}" TextAlignment="Right" />
+
+                                        </Grid>
+                                    </Border>
+  
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+
