@@ -56,7 +56,9 @@
                 <Separator/>
             </ToolBar>
         </ToolBarTray>
-        <Grid>
+        <Border BorderBrush="LightGray" BorderThickness="1,0,1,0" Margin="-6,0,-6,0">
+
+          <Grid>
             
             <!--
             <Grid.Resources>
@@ -82,7 +84,8 @@
                       AlternationCount="2" 
                       ItemContainerStyle="{StaticResource alternatingWithTriggers}">
             -->
-            <ListView x:Name="uxItemList" Height="200" SelectionChanged="uxItemList_SelectionChanged" Opacity=".6">
+            <ListView x:Name="uxItemList" Height="200" SelectionChanged="uxItemList_SelectionChanged" Opacity=".6"
+                      MouseDoubleClick="uxItemList_MouseDoubleClick">
 
                 <ListView.ContextMenu>
                     <ContextMenu>
@@ -102,7 +105,7 @@
                 </ListView.Resources>
 
                 <ListView.View>
-                  <GridView >
+                   <GridView >
                     <GridViewColumn Width="30" >
                         <GridViewColumn.Header>
                             <GridViewColumnHeader Tag="Id" Click="lvItemsColumnHeader_Click">Id</GridViewColumnHeader>
@@ -110,9 +113,7 @@
 
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="LightGray" BorderThickness="1,0,1,0" Margin="-6,0,-6,0">
-                                        <TextBlock Text="{Binding Id}" TextAlignment="Right" />
-                                </Border>
+                                        <Label Content="{Binding Id}" BorderBrush="LightGray" BorderThickness="1,0,1,0" Style="{StaticResource AppTextBoxStyleRightAlign}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -172,6 +173,7 @@
             </ListView.View>
         </ListView>
         </Grid>
+        </Border>
 
         <StatusBar>
             <StatusBarItem>

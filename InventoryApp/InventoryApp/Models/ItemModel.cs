@@ -43,5 +43,10 @@ namespace InventoryApp.Models
 
             return itemModel;
         }
+
+        internal ItemModel Clone()
+        {
+            return (ItemModel) MemberwiseClone();
+        }
     }
 }

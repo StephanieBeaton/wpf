@@ -1,0 +1,4 @@
+<Border BorderBrush="LightGray" BorderThickness="1,0,1,0" Margin="-6,0,-6,0">
+    <TextBlock Text="{Binding Id}" Style="{StaticResource AppTextBoxStyleRightAlign}"/>
+</Border>
+ 

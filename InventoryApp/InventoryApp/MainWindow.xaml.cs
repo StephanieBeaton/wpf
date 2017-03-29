@@ -26,7 +26,7 @@ namespace InventoryApp
     //
     //  This class draws a triangle, 
     //  ... either pointing up or down, 
-    //  ... depending on the sort direction
+    //  ... depending on the sort direction in the column header
     //
     //          http://www.wpf-tutorial.com/listview-control/listview-how-to-column-sorting/
     //
@@ -203,7 +203,7 @@ namespace InventoryApp
         {
 
             var window = new ItemWindow();
-            window.Item = selectedItem;
+            window.Item = selectedItem.Clone();  
 
             if (window.ShowDialog() == true)
             {
@@ -362,6 +362,8 @@ namespace InventoryApp
         // ===============================================================================================
 
 
+
+
         // ===============================================================================================
         //
         //   Event Handlers for Short Cut Key Commands
@@ -376,18 +378,23 @@ namespace InventoryApp
             e.CanExecute = true;
         }
 
-        // Click Ctrl-N to execute the shortcut.
+        // Click Ctrl-U to execute the shortcut.
         private void OnUpdate_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             // Set this to false if the Update command is not available
             e.CanExecute = (selectedItem != null);
         }
 
-        // Click Ctrl-N to execute the shortcut.
+        // Click Ctrl-D to execute the shortcut.
         private void OnDelete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             // Set this to false if the Delete command is not available
             e.CanExecute = (selectedItem != null);
+        }
+
+        private void uxItemList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            uxItemUpdate_Click(sender, null);  
         }
         #endregion
         // ===============================================================================================

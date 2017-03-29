@@ -32,7 +32,7 @@ namespace InventoryApp
                 Item.CreatedDate = DateTime.Now;
             }
 
-            uxGrid.DataContext = Item;
+           uxGrid.DataContext = Item;  
         }
 
         private void uxSubmit_Click(object sender, RoutedEventArgs e)
